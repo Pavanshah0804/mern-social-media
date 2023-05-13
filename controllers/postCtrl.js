@@ -346,4 +346,3 @@ const postCtrl = {
 };
 
 module.exports = postCtrl;
-

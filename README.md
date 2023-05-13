@@ -1,5 +1,8 @@
 Don't forget to star the repo.
 
+Raj Sakariya is also contributor in this project.
+https://github.com/raj074/mern-social-media
+
 Demo website : https://mern-social-media-sdp.herokuapp.com/
 # mern-social-media-complete-project
 A MERN stack based project on social media application. It is completely working project. Its' completely responsive application.
@@ -30,7 +33,7 @@ MongoDB Express React Redux NodeJs are user in this project.
  - posts include text(caption) and image(s).
  - comment on posts.
  - reply comments.
- - like commets.
+ - like comments.
  - clear notification option.
  - profile page shows user details and posts with following and followers menu.
 
