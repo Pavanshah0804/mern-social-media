@@ -73,6 +73,11 @@ const adminCtrl = {
 
   deleteSpamPost: async (req, res) => {
     try {
+      const pst = (await Posts.findOne({ _id: req.params.id })).images;
+      pst.forEach((item) => {
+        cloudinary.uploader.destroy(item.public_id, { resource_type: "image" });
+        cloudinary.uploader.destroy(item.public_id, { resource_type: "video" });
+      });
       const post = await Posts.findOneAndDelete({
         _id: req.params.id,
       });
