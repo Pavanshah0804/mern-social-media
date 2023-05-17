@@ -37,7 +37,11 @@ app.use('/api', require('./routes/notifyRouter'));
 app.use('/api', require('./routes/messageRouter'));
 //#endregion
 
-const URI = process.env.MONGODB_URL_test;
+const URI = process.env.DATABASE_LOCAL;
+// const URI = process.env.DATABASE.replace(
+//   "<PASSWORD>",
+//   process.env.DATABASE_PASSWORD
+// );
 
 mongoose.connect(URI, {
     useCreateIndex:true,

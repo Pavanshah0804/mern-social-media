@@ -25,10 +25,10 @@ export const imageUpload = async (images) => {
     } else {
       formData.append("file", item);
     }
-    formData.append("upload_preset", "testmern");
-    formData.append("cloud_name", "dqed8sftd");
+    formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET);
+    formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
 
-    const res = await fetch("https://api.cloudinary.com/v1_1/dqed8sftd/auto/upload",
+    const res = await fetch(process.env.REACT_APP_UPLOAD_URL,
       {
         method: "POST",
         body: formData,
