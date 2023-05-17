@@ -28,7 +28,6 @@ const postCtrl = {
     try {
       const { content, images } = req.body;
 
-      console.log('images :>> ', images);
       if (images.length === 0) {
         return res.status(400).json({ msg: "Please add photo(s)" });
       }
@@ -84,11 +83,8 @@ const postCtrl = {
   updatePost: async (req, res) => {
     try {
       const { content, images } = req.body;
-      // const pst = (await Posts.findOne({ _id: req.params.id })).images;
-      // pst.forEach((item) => {
-      //   cloudinary.uploader.destroy(item.public_id, { resource_type: "image" });
-      //   cloudinary.uploader.destroy(item.public_id, { resource_type: "video" });
-      // });
+      const pst = (await Posts.findOne({ _id: req.params.id })).images;
+      // console.log("pst :>> ", pst);
 
       const post = await Posts.findOneAndUpdate(
         { _id: req.params.id },
@@ -105,6 +101,24 @@ const postCtrl = {
             select: "-password",
           },
         });
+      const updatedpost = (await Posts.findOne({ _id: req.params.id })).images;
+      for (let i = 0; i < pst.length; i++) {
+        let match = 0;
+        if (
+          updatedpost.find((obj) => obj.public_id === pst[i].public_id) !=
+          undefined
+        ) {
+          match = 1;
+        }
+        if (match == 0) {
+          cloudinary.uploader.destroy(pst[i].public_id, {
+            resource_type: "image",
+          });
+          cloudinary.uploader.destroy(pst[i].public_id, {
+            resource_type: "video",
+          });
+        }
+      }
 
       res.json({
         msg: "Post updated successfully.",
