@@ -2,7 +2,7 @@ const Posts = require("../models/postModel");
 const Users = require("../models/userModel");
 const Comments = require("../models/commentModel");
 const { post } = require("../routes/adminRouter");
-
+const cloudinary = require("../config");
 
 const adminCtrl = {
   getTotalUsers: async (req, res) => {
@@ -49,8 +49,10 @@ const adminCtrl = {
   getTotalSpamPosts: async (req, res) => {
     try {
       const posts = await Posts.find();
-      
-      const reportedPosts = await posts.filter(post => post.reports.length>2);
+
+      const reportedPosts = await posts.filter(
+        (post) => post.reports.length > 2
+      );
       const total_spam_posts = reportedPosts.length;
       res.json({ total_spam_posts });
     } catch (err) {
@@ -64,7 +66,7 @@ const adminCtrl = {
         .select("user createdAt reports content")
         .populate({ path: "user", select: "username avatar email" });
       const spamPosts = posts.filter((post) => post.reports.length > 1);
-      
+
       res.json({ spamPosts });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
